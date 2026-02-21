@@ -2,28 +2,31 @@ import { useRef, useEffect } from "react";
 import { useInView } from "framer-motion";
 import workSectionVideo from "@/assets/story-video.mov";
 
-const PLAY_INTERVAL_SEC = 7; // play 7 sec then loop from start
+const PLAY_DURATION_SEC = 7; // play once for 7 sec then stop until page reload
 
 export default function WorkSectionVideo() {
   const sectionRef = useRef<HTMLElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
   const isInView = useInView(sectionRef, { amount: 0.2, once: true });
+  const hasStoppedRef = useRef(false);
 
   useEffect(() => {
-    if (!isInView || !videoRef.current) return;
+    if (!isInView || !videoRef.current || hasStoppedRef.current) return;
     const video = videoRef.current;
+    video.currentTime = 0;
     video.play().catch(() => {});
 
-    const loopAtInterval = () => {
-      if (video.currentTime >= PLAY_INTERVAL_SEC) {
-        video.currentTime = 0;
+    const stopAfterDuration = () => {
+      if (video.currentTime >= PLAY_DURATION_SEC) {
+        video.pause();
+        hasStoppedRef.current = true;
+        video.removeEventListener("timeupdate", stopAfterDuration);
       }
     };
-    video.addEventListener("timeupdate", loopAtInterval);
+    video.addEventListener("timeupdate", stopAfterDuration);
 
     return () => {
-      video.pause();
-      video.removeEventListener("timeupdate", loopAtInterval);
+      video.removeEventListener("timeupdate", stopAfterDuration);
     };
   }, [isInView]);
 

@@ -71,7 +71,7 @@ export default function Brands() {
         </p>
       </div>
 
-      <div className="flex overflow-hidden group">
+      <div className="flex overflow-hidden group bg-white py-8">
         <motion.div
           animate={{ x: [0, -1000] }}
           transition={{ duration: 20, repeat: Infinity, ease: "linear" }}

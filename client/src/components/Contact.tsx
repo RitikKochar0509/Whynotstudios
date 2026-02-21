@@ -7,7 +7,13 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
-import { Mail, Instagram, Twitter, Youtube, Smile, Loader2 } from "lucide-react";
+import { Mail, Instagram, Linkedin, Phone,  Smile, Loader2 } from "lucide-react";
+
+const SOCIAL_LINKS = [
+  { href: "https://www.instagram.com/why_not_studios_/", icon: Instagram, label: "Instagram" },
+  { href: "https://www.linkedin.com/company/why-not-studios-byakshay/", icon: Linkedin, label: "LinkedIn" },
+  { href: "https://wa.me/918169978881?text=Hi", icon: Phone, label: "WhatsApp" },
+];
 
 const FORM_ID = "xpqjyqll";
 const FORMSPREE_ENDPOINT =
@@ -97,7 +103,7 @@ export default function Contact() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-20 items-start">
           <div className="lg:pt-1">
             <div className="mb-12 text-center">
-              <h3 className="text-6xl font-heading text-primary leading-[0.9] lowercase">
+              <h3 className="text-3xl md:text-4xl font-heading font-bold text-primary leading-[0.9] lowercase">
                 shoot us a <span className="text-primary/80 italic">signal.</span>
               </h3>
             </div>
@@ -127,8 +133,15 @@ export default function Contact() {
             <div className="mt-16 pt-12 border-t border-primary/10">
               <p className="text-primary/40 text-xs uppercase font-black tracking-widest mb-6 italic">Follow the madness</p>
               <div className="flex gap-4">
-                {[Instagram, Twitter, Youtube].map((Icon, i) => (
-                  <a key={i} href="#" className="w-12 h-12 flex items-center justify-center border-2 border-primary text-primary hover:bg-secondary hover:border-secondary hover:text-background transition-all">
+                {SOCIAL_LINKS.map(({ href, icon: Icon, label }) => (
+                  <a
+                    key={label}
+                    href={href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={label}
+                    className="w-12 h-12 flex items-center justify-center border-2 border-primary text-primary hover:bg-secondary hover:border-secondary hover:text-background transition-all"
+                  >
                     <Icon className="w-5 h-5" />
                   </a>
                 ))}

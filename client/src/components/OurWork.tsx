@@ -76,7 +76,7 @@ export default function OurWork() {
     >
       <div className="container mx-auto px-6 md:px-10 mb-10 text-center">
         <h3
-          className="text-4xl md:text-6xl font-heading font-bold text-white lowercase"
+          className="text-3xl md:text-4xl font-heading font-bold text-white lowercase"
           style={{
             backgroundImage: "linear-gradient(0deg, rgb(255,255,255) 0%, rgba(255,255,255,0) 203.7%)",
             WebkitBackgroundClip: "text",
